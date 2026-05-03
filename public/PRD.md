@@ -121,9 +121,10 @@ Introducing **Smart Zones with AI**. Now, when you set up your camera, our AI an
 ---
 
 ## 9. Assumptions and Risks
-* **Assumption:** The AI computer vision model is accurate at discerning public roads vs. private walkways.
-* **Assumption:** The AI computer vision (CV) model architecture can run either in the cloud or locally on-device. Executing inference locally on the device is highly preferred when possible, as it minimizes network latency, reduces cloud compute execution costs, and ensures a rapid setup experience regardless of bandwidth.
+* **Assumption:** Initial prototyping and testing (internal dogfooding and alpha usability testing) will use a generic Video Language Model (VLM) running in the cloud to choose the eight vertices of the motion zone initially. This approach allows for faster prototyping and highly accurate selection. Recommended VLMs easily accessible in AWS (via Amazon Bedrock) include **Anthropic Claude 3.5 Sonnet** and **Amazon Nova Pro**.
+* **Assumption:** If the initial testing with cloud VLMs is successful, additional models will be considered that are more lightweight and can potentially run on the edge. Executing inference locally on the device is highly preferred for production when possible, as it minimizes network latency, reduces cloud compute execution costs, and ensures a rapid setup experience regardless of bandwidth.
 * **Assumption:** Implementing on-device inference assumes the utilization of highly optimized semantic segmentation models (such as MobileNetV3-based DeepLab, YOLOv8-seg, or other edge-optimized architectures). To meet the strict processing, thermal, and memory constraints of edge deployment, these models must undergo optimization techniques, including post-training quantization (reducing FP32 weights to INT8 format), Knowledge Distillation, and structural pruning, all while maintaining a high Intersection over Union (IoU) accuracy threshold for critical environmental classes like "street," "sky," "driveway," and "porch."
+* **Assumption:** The AI computer vision model is accurate at discerning public roads vs. private walkways.
 * **Risk:** If the AI model incorrectly excludes the porch (where packages are dropped), users will miss events. *Mitigation:* Ensure the AI is engineered to over-include near-field areas (porch, immediate steps) rather than under-include.
 
 ---
