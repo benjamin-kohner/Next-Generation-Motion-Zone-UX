@@ -21,7 +21,7 @@ By resolving these usability hurdles and modernizing the UX of motion zone creat
 ## 3. Key User Problem Solved (The "Why")
 **User Problem:** Users struggle to quickly and seamlessly map their desired motion detection area. The current 8-point polygon tool lacks intelligent defaults and utilizes undersized interactive nodes, leading to a tedious manipulation process where users repeatedly miss the grab points and require multiple "finger flicks" to adjust a boundary. Consequently, frustrated users settle for inaccurate zones that wrongfully capture public streets or omit crucial areas like the immediate porch space. 
 
-This struggle is evidenced by these KPIs: telemetry reveals a **setup abandonment rate of 28%** on the first attempt. Given that approximately **12 million new devices are configured annually**, this means over 3.3 million users each year are leaving their cameras with unoptimized settings. Furthermore, for users who do complete the process, the **average time to set up a motion zone is 54 seconds**, with a **P90 setup time of 128 seconds**.
+This struggle is evidenced by these KPIs: telemetry reveals a **setup abandonment rate of 28%** on the first attempt. Given that approximately **12 million new devices are configured annually**, this means over 3.3 million users each year are leaving their cameras with unoptimized settings. Furthermore, for users who do complete the process, the **average time to set up a motion zone is 54 seconds**, with a **P90 setup time of 128 seconds**. Additionally, a recent analysis of Amazon.com customer feedback highlighted 33 negative reviews specifically citing excessively high or low notification volumes. Since accurate motion zones are the most effective tool for users to personalize and optimize their alert frequency, solving this setup friction directly addresses a major driver of public customer dissatisfaction.
 
 **Impact:** 
 1. **Notification Fatigue:** Users create poorly fitted zones that capture street traffic, leading to annoying false alerts.
@@ -73,6 +73,7 @@ Introducing **Smart Zones with AI**. Now, when you set up your camera, our AI an
 * **As a user,** I would like to be able to easily manipulate the boundaries of my motion zone using tap-friendly grab points so that I do not get frustrated dragging points on a small mobile screen.
 * **As a user,** I would like to exclude busy public streets from my motion zone so that I avoid annoying false alerts from public areas such as streets.
 * **As a user,** I would like to verify and save my zone configuration quickly so that I am confident my settings are applied properly.
+* **As a power user,** I would like the ability to map up to two additional supplementary motion zones so that I can create a highly customized and multi-faceted detection environment for my property.
 
 **P1 (Optional)**
 * **As a user,** I would like to reset my custom limits back to the AI recommendation so that I can easily start over if I make a mistake while manually adjusting.
@@ -97,6 +98,9 @@ Introducing **Smart Zones with AI**. Now, when you set up your camera, our AI an
 * **Cloud Motion Evaluation Volume & Associated Costs:** The aggregate number of motion events transmitted to the cloud for AI image recognition evaluation. (Target: Achieve a stat sig decrease in total processed events per camera by guiding users toward tighter, more accurate zones, directly reducing compute expenses).
 * **Ring Protect Plan Setup Conversion:** Percentage of customers that sign up for a Ring Protect plan within 30 days after device setup.
 
+### Guardrail Metrics
+* **Motion Zone Editor Load Time:** The introduction of intelligent AI defaults must not severely degrade the in-app experience. The page load time for the new motion zone editor must be no more than 25% slower than the existing legacy tool's load time. With the legacy tool loading in 250ms, the new AI-recommended experience must load in under 312.5ms.
+
 ---
 
 ## 7. Launch Plan & Rollout Strategy
@@ -118,4 +122,14 @@ Introducing **Smart Zones with AI**. Now, when you set up your camera, our AI an
 
 ## 9. Assumptions and Risks
 * **Assumption:** The AI computer vision model is accurate at discerning public roads vs. private walkways.
+* **Assumption:** The AI computer vision (CV) model architecture can run either in the cloud or locally on-device. Executing inference locally on the device is highly preferred when possible, as it minimizes network latency, reduces cloud compute execution costs, and ensures a rapid setup experience regardless of bandwidth.
+* **Assumption:** Implementing on-device inference assumes the utilization of highly optimized semantic segmentation models (such as MobileNetV3-based DeepLab, YOLOv8-seg, or other edge-optimized architectures). To meet the strict processing, thermal, and memory constraints of edge deployment, these models must undergo optimization techniques, including post-training quantization (reducing FP32 weights to INT8 format), Knowledge Distillation, and structural pruning, all while maintaining a high Intersection over Union (IoU) accuracy threshold for critical environmental classes like "street," "sky," "driveway," and "porch."
 * **Risk:** If the AI model incorrectly excludes the porch (where packages are dropped), users will miss events. *Mitigation:* Ensure the AI is engineered to over-include near-field areas (porch, immediate steps) rather than under-include.
+
+---
+
+## 10. Launch and Go to Market
+
+If this product is approved for General Availability (GA), the following Go-To-Market readiness requirements must be fulfilled prior to launch:
+1. **Online Documentation Updates:** Ring's online Help Center and setup guides must be updated to explicitly state that the Motion Zone Editor now utilizes embedded Artificial Intelligence to automatically recommend the most optimal motion zone during camera setup.
+2. **Zero-Friction Education Strategy:** All release communications should note that no active customer education, tooltip tours, or tutorial flows are required. Because the intelligent boundaries are automatically applied and remain easily adjustable via larger touch points within a familiar interface, the feature is inherently intuitive.
