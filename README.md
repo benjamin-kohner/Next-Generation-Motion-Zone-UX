@@ -1,6 +1,7 @@
 # Next Generation Motion Zone UX
 
 **Live Demo:** [https://next-generation-motion-zone-ux-1073165315355.us-west1.run.app/](https://next-generation-motion-zone-ux-1073165315355.us-west1.run.app/)
+**Product Requirements Document (PRD):** [View the PRD](./public/PRD.md)
 
 This prototype application demonstrates and evaluates new interaction models for setting up motion detection zones in smart security cameras.
 
