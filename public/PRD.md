@@ -9,6 +9,8 @@
 **Abstract:**
 This document outlines the product requirements for reimagining the Motion Zone setup experience. Setting up motion zones is currently a user friction point; telemetry reveals a 28% of users do not modify the default zone, and customer feedback frequently highlights that "the current polygon dots are too small and frustrating to drag." This friction results in poor zone placement, leading to notification fatigue from false alerts or missed events. We aim to replace the legacy tool with an AI-generated initial recommendation model featuring larger, tap-friendly grab points to create a fast, intuitive, and highly accurate configuration experience.
 
+*Disclaimer: All customer metrics, KPI targets, and device configuration volumes are strictly fictitious. They are illustrative assumptions utilized solely to provide realistic context for this product proposal.*
+
 ---
 
 ## 2. Background & Strategic Fit
